@@ -18,5 +18,16 @@ React는 뛰어난 성능을 제공한다.
 헤드리스 브라우저: GUI 없이 실행할 수 있는 브라우저. 대표적으로 PhantomJS 최근에는 Chrome과 Firefox가 헤드리스모드   
 **3. 코드량감소**  
 수많은 라이브러리와 컴포넌트를 접할 수 있다.
+  
+## 간결성
+- 선언형 스타일 채택  
+```
+var arr=[1,2,3,4,5];
+arr2 = [];
+for(var i=0;i<arr.length;i++){
+  arr2[i] = arr[i]*2;
+}
+console.log('a',arr2);
 
-##React의 
+a[2,4,6,8,10]  
+```
