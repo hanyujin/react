@@ -61,7 +61,12 @@ return React.createElement('div',null,account.name) //계정이름을 입력한 
 account.map(function(account,index){// 배열의 요소값과 array.map()이 제공하는 인덱스를 사용한다.
 return React.createElement('div',{key:index},account.name) //인덱스를 key속성으로 하고 account.name을 텍스트로 가진 React 엘리먼트 <div>를반환한다.
 })
-```
+```  
+
+#강력한 추상화  
+강력한 문서 모델 추상화를 제공한다. 내부의 인터페이스는 숨기고 대신에 정규화 과정을 거친 합성 메서드와 속성을 제공한다. 예를 들어 react에서 onclick이벤트가 발생하면 이벤트 핸들러는 브라우저의 원본 이벤트 객체 대신 이 원본 객체를 감싼 합성 이벤트 객체를 전달받는다.  
+브라우저 종류와 상관없이 항상 같은 이벤트 객체를 전달받는 것이다. 또한 터치 이벤트에 대해서도 합성 이벤트를 제공하므로 모바일 기기를 대응한 웹 앱을 만들 때 매우 유용하다.  
+
 ## 속도와 테스트 용이성  
 꼭 필요한 부분만 갱신하여 내부 상태와 뷰를 같게만든다.  
 *innerHTML* 요소 전체 또는 서버측 렌더링처럼 전체 페이지를 다시 렌더링하는 것에 비하면 성능이 뛰어남  
