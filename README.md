@@ -167,7 +167,7 @@ DigitalDisplay.locale = (time)=>{
 const DigitalDisplay = function(props){
   const locale = time=>(new Date(time)).toLocalString('EU'); 
   return <div>{local(props.time)}</div> 
-}
+}```
 
 
 # React 컴포넌트 라이프사이클 이벤트 
