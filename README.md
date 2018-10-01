@@ -48,7 +48,7 @@ AngularJS같은 프레임워크는 자동으로 뷰를 갱신한다. 그리고 �
 이것은 말 그래도 뷰와 모델이 양방향으로 데이터를 통신하고 동기화 한다는 것을 의미한다.  
 
 ## 자바스크립트를 이용한 컴포넌트 기반 아키텍처  
-컴포넌트 기반 아키텍처는 React 이전에도 있었다. 관심사 분리, 느슨한 결합, 코드 재사용은 이방식의 핵심!으로 이점이 많다.  
+컴포넌트 기반 아키텍처는 React 이전에도 있었다. 관심사 분리, 느슨한 결합, 코드 재사용은 이방식의 핵심!으로 이점이 많다.
 코드 재사용이 쉬워서 코드를 줄일 수 있다는 것이 가장 대표적인 장점이다.  
 React는 순수한 자바스크립트 이므로 새로운 언어를 배울 필요가 없다. 
 ```
@@ -75,7 +75,7 @@ return React.createElement('div',{key:index},account.name) //인덱스를 key속
 ## React 컴포넌트의 상태객체
 상태객체는 컴포넌트의 멤버 변수로 this를 통해 접근할 수 있다. this.state.name 
 
-# 초기값 설정
+## 초기값 설정
 React.component를 사용하는 ES6 클래스의 생성자에서 선언
 ```
 class Clock extends React.Component{
@@ -85,7 +85,7 @@ constrctor(props){
 }}
 
 ```
-# 상태 갱신하기 
+## 상태 갱신하기 
 this.setState(data,callback) -> 비동기로 작동하기 때문에 새로운 상태에 의존하는 경우 콜백함수를 사용해야 새로운 상태가 적용된 후에 필요한 작업을 수행할 수 있다. 
 setState() 가 render() 를 실행시킨다. (다시 랜더링하려면 this.forceUpdate() 호출)
 일반적으로 이벤트 핸들러나 데이터 수신 또는 갱신을 처리하는 콜백함수에서 호출된다. 
@@ -103,7 +103,7 @@ updateValue(){
 }
 ```
  
- # 상태비저장 컴포넌트 
+ ## 상태비저장 컴포넌트 
  - 상태 객체가 없는 것 
  - React 라이프사이클 이벤트, 메서드를 갖지않는것 
  - 오직 뷰를 렌더링 
@@ -168,3 +168,45 @@ const DigitalDisplay = function(props){
   const locale = time=>(new Date(time)).toLocalString('EU'); 
   return <div>{local(props.time)}</div> 
 }
+
+
+# React 컴포넌트 라이프사이클 이벤트 
+ 1. constrctor() 엘리먼트 생성
+ 2. 마운팅(mounting)이벤트  
+  React 엘리먼트(컴포넌트 클래스의 인스턴스) 를 DOM 노드에 추가할 떄 발생한다.   
+  한번만 실행한다.  
+  - componentWillMount() 
+    DOM에 삽입하기 전에 실행된다. 
+  - componentDidMount() 
+    DOM에 삽입되어 렌더링이 완료된 후 실행된다.
+    
+ 3. 갱신(updating)이벤트  
+ 속성이나 상태가 변경되어 React엘리먼트를 갱신할 떄 발생한다.  
+ 여러번 실행한다. 
+  - componentWillReceiveProps(nextProps) 
+  컴포넌트가 속성을 받기 직전에 실행된다. 
+  - shouldComponentUpdate(nextProps,nextState) 
+  컴포넌트가 갱신되는 조건을 정의해서 재렌더링을 최적화할 수 있다. 불 값을 반환한다.
+  - componentWillUpate(nextProps,nextState) 
+  컴포넌트가 갱신되기 직전에 실행된다. 
+  - componentDidUpdate(prevProps,prevSate) 
+  컴포넌트가 갱신된 후에 실행된다.   
+  
+ 4. 언마운팅(unmounting)이벤트 
+ React 엘리먼트를 DOM 에서 제거할 때 발생한다.   
+ 한번만 실행된다  
+  - componentWillUnmount() 
+  컴포넌트를 DOM에서 제거하기 전에 실행되며 구독한 이벤트를 제거하거나 다른 정리 작업  
+  
+  * this.forceUpdate()  
+  갱신을 강제로 실행한다.  
+  
+  
+  ###순수함수  
+  - 같은 입력에 대해 항상 같은 출력 
+  - 부수효과가 없다(외부 상태를 변경하지 않는다.)
+  - 외부상태에 의존하지 않는다.  
+  * 순수함수는 함수형 프로그래밍의 기초다. 순수함수를 사용하면 공유상태를 완화하여 개발 과정이 단순해지고 개별 로직을 분리할 수 있기 때문에 테스트도 쉽다.   
+  
+  
+  
