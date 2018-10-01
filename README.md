@@ -72,5 +72,99 @@ return React.createElement('div',{key:index},account.name) //인덱스를 key속
 *innerHTML* 요소 전체 또는 서버측 렌더링처럼 전체 페이지를 다시 렌더링하는 것에 비하면 성능이 뛰어남  
 
 
+## React 컴포넌트의 상태객체
+상태객체는 컴포넌트의 멤버 변수로 this를 통해 접근할 수 있다. this.state.name 
+
+# 초기값 설정
+React.component를 사용하는 ES6 클래스의 생성자에서 선언
+```
+class Clock extends React.Component{
+constrctor(props){
+  super(props);
+  this.state = {currentTime:new Date().toLocalString();}
+}}
+
+```
+# 상태 갱신하기 
+this.setState(data,callback) -> 비동기로 작동하기 때문에 새로운 상태에 의존하는 경우 콜백함수를 사용해야 새로운 상태가 적용된 후에 필요한 작업을 수행할 수 있다. 
+setState() 가 render() 를 실행시킨다. (다시 랜더링하려면 this.forceUpdate() 호출)
+일반적으로 이벤트 핸들러나 데이터 수신 또는 갱신을 처리하는 콜백함수에서 호출된다. 
+``` 
+constructor(props){
+  super(props);
+  this.state = {
+    userName: 'hanyujin',
+    userEmail: 'h@naver.com',
+    userId: 'jin'
+  }
+}
+updateValue(){
+  this.setState({userName:'hanjihyun'}); //userName만 변경
+}
+```
+ 
+ # 상태비저장 컴포넌트 
+ - 상태 객체가 없는 것 
+ - React 라이프사이클 이벤트, 메서드를 갖지않는것 
+ - 오직 뷰를 렌더링 
+ - 예측할 수 있고 유지보수 디버깅이 편리하다 
+  
+  ``` 
+  class HelloWorld extends React.Componet{
+    render(){
+      return <h1 {...this.props}>Hello {this.props.frameworkName} word!!!</h1>
+    }
+  }
+ ``` 
+ ```
+  const Helloworld  = function(props){
+      return <h1 {...this.props}>Hello {this.props.frameworkName} word!!!</h1>
+  }
+  ``` 
+  ``` 
+  function Link(props){
+    return <a href={props.href} target="_blank" className = "btn_primary">{props.text}</a>
+  }
+  reactDOM.render(<Link text = 'Buy react quickly' href='https://..'>,document.getElementById('content'));
+  ``` 
+  ``` 
+  const Link = props=><a href= {props.href} target="_blank" className = "btn-primary">{props.text}</a>
+  ``` 
+  ``` 
+  const Link( props )=>{
+  return (<a href= {props.href} target="_blank" className = "btn-primary">{props.text}</a>)};
+  ```  
+  ```
+  function Link = (props)=>{
+  return (<a href= {props.href} target="_blank" className = "btn-primary">{props.text}</a>)}; 
+  ```
 
 
+## 상태비저장 컴포넌트와 상태저장 컴포넌트의 비교 
+- 상태비저장 컴포넌트 
+HTML렌더링을 처리하는 것으로 충분한 경우 별도의 인스턴스를 생성하거나 라이프사이클 메서드를 사용하지 않아도 될때사용한다 
+ 상태비저장 컴퓨넌트가 반드시 정적은 아니다 
+ ``` 
+render(){
+  return <div><DigitalDisplay time = {this.states.currentTime} /></div>
+}
+const DigitalDisplay = function(props){
+  return <div>{props.time}</div>
+} 
+``` 
+
+//안티패턴 
+``` 
+const DigitalDisplay = function(props){
+  return <div>{DigitalDisplay.locale(props.time)}</div>
+} 
+DigitalDisplay.locale = (time)=>{
+  return (new Date(time)).toLocaleString('EU');
+} 
+``` 
+//좋은 패턴 
+``` 
+const DigitalDisplay = function(props){
+  const locale = time=>(new Date(time)).toLocalString('EU'); 
+  return <div>{local(props.time)}</div> 
+}
