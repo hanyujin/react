@@ -1,0 +1,279 @@
+
+ babel을 jsx 트랜스파일러 설정하기
+
+1. 해당 디렉토리에 가서 npm init을 하고 쭉~ enter =>package.json 이 생성됨
+2. package.json 수정, (devDependencies, scirpt 등 추가)
+3. npm install 실행 (package.json 에 선언된 설정들로 설치하는 명령어)
+4. node_modules/.bin/밑에 babel이 있는지 확인
+5. 만약 package.json에 scritp안에 "build": "./node_modules/.bin/babel ./jsx -d ./js -w"
+가 되어있다면 실행하는 법은 npm run build
+
+1. npm init
+2. npm install babel-preset-es2015 --save
+3. npm install babel-cli --save-dev
+4. npm install babel-preset-react --save-dev
+5. package.json 파일에서 명칭에서 6.24.1 등 버전을 나타내는건 의미 없음.
+..
+  "dependencies": { 
+    "babel-preset-es2015": "^6.24.1" 
+  }, 
+  "devDependencies": { 
+    "babel-cli": "^6.9.0", 
+    "babel-preset-react": "^6.5.0" 
+  }, 
+...
+상태 확인
+6. 확인후에 아래와 같은게 없으면 추가
+..
+ "babel": { 
+    "presets": ["react"] 
+  }
+..
+7. script 에 build 설정 build : "./node_modules/.bin/babel ./{path}/jsx -d ./{path}/js -w"
+8. npm run build (7번에서 설정한 script 의 명령어 실행)
+9. 8번이 안되면 npm uninstall babel
+10. npm install --save-dev babel-cli 재설치
+11. 다시 npm run build 실행 
+
+
+#ackage.json
+```
+{
+  "name": "ch03_sjm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/babel ./hello-js-world-jsx/jsx -d ./hello-js-world-jsx/js -w"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react": "^6.24.1"
+  },
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "description": "",
+  "babel": {
+    "presets": [
+      "react"
+    ]
+  }
+}
+```
+ 
+ #script.jsx  
+ 
+ ```
+ /*
+
+#3.3 jsx�� �̿��ؼ� ������ helloworld Ŭ����
+class HelloWorld extends React.Component{
+	render(){
+		return(
+			<div>
+				<h1>1. Hello </h1>
+				<h1>2. Hello </h1>
+			</div>
+		)
+	}
+}
+ReactDOM.render(
+	<HelloWorld/>,
+	document.getElementById('content')
+)
+
+
+class HelloWorld extends React.Component {
+  render() {
+    return <h1 {...this.props}>Hello {this.props.frameworkName} world!!!</h1>
+  }
+}
+
+ReactDOM.render(
+  <div>
+    <HelloWorld
+      id='ember'
+      frameworkName='file1.js'
+      title='A framework for creating ambitious web applications.'/>
+    <HelloWorld
+      id='backbone'
+      frameworkName='file2.js'
+      title='Backbone.js gives structure to web applications...'/>
+    <HelloWorld
+      id='angular'
+      frameworkName='file333.js'
+      title='Superheroic JavaScript MVW Framework'/>
+  </div>,
+  document.getElementById('content')
+)
+
+#3.4 jsx���� ���� ����ϱ�
+let hellowordReactElement =<h1>helloworld</h1>
+
+class HelloWorld extends React.Component{
+	render(){
+		return(
+			<div>
+				{hellowordReactElement}{hellowordReactElement}
+			</div>
+		)
+	}
+}
+ReactDOM.render(
+	<HelloWorld/>,
+	document.getElementById('content')
+)
+
+#3.5 �Ӽ��ٷ�� 
+
+class Helloworld extends React.Component{
+	render(){
+		return <h1 {...this.props}>Hello {this.props.frameworkName} world!!!!</h1>
+	}
+}
+
+
+
+
+ReactDOM.render(
+	<div> 
+		<Helloworld id = 'ember' frameworkName='Ember.js' title='a framework for...applications'/>,
+		<Helloworld id = 'backbone' frameworkName='Backbone.js' title='a strcture for...applications'/>,
+		<Helloworld id = 'angular' frameworkName='Angular.js' title='a superheroic for...applications'/>,
+	</div>,
+	document.getElementById('content')
+	
+)
+
+#3.6 ������Ʈ �޼��� ȣ���Ͽ� url ��������
+class Content extends React.Component{
+	getUrl(){
+		return 'https://www.naver.com/'
+	}
+	render(){
+		return (<div><p>your rest url <a href={this.getUrl()}>{this.getUrl()}</a></p></div>)
+	}
+}
+ReactDOM.render(
+	<Content />,
+	document.getElementById('content')
+)
+*/
+
+ ```
+
+  
+ #script.js
+ 
+ ```
+ /*
+
+#3.3 jsx�� �̿��ؼ� ������ helloworld Ŭ����
+class HelloWorld extends React.Component{
+	render(){
+		return(
+			<div>
+				<h1>1. Hello </h1>
+				<h1>2. Hello </h1>
+			</div>
+		)
+	}
+}
+ReactDOM.render(
+	<HelloWorld/>,
+	document.getElementById('content')
+)
+
+
+class HelloWorld extends React.Component {
+  render() {
+    return <h1 {...this.props}>Hello {this.props.frameworkName} world!!!</h1>
+  }
+}
+
+ReactDOM.render(
+  <div>
+    <HelloWorld
+      id='ember'
+      frameworkName='file1.js'
+      title='A framework for creating ambitious web applications.'/>
+    <HelloWorld
+      id='backbone'
+      frameworkName='file2.js'
+      title='Backbone.js gives structure to web applications...'/>
+    <HelloWorld
+      id='angular'
+      frameworkName='file333.js'
+      title='Superheroic JavaScript MVW Framework'/>
+  </div>,
+  document.getElementById('content')
+)
+
+#3.4 jsx���� ���� ����ϱ�
+let hellowordReactElement =<h1>helloworld</h1>
+
+class HelloWorld extends React.Component{
+	render(){
+		return(
+			<div>
+				{hellowordReactElement}{hellowordReactElement}
+			</div>
+		)
+	}
+}
+ReactDOM.render(
+	<HelloWorld/>,
+	document.getElementById('content')
+)
+
+#3.5 �Ӽ��ٷ�� 
+
+class Helloworld extends React.Component{
+	render(){
+		return <h1 {...this.props}>Hello {this.props.frameworkName} world!!!!</h1>
+	}
+}
+
+ReactDOM.render(
+	<div> 
+		<Helloworld id = 'ember' frameworkName='Ember.js' title='a framework for...applications'/>,
+		<Helloworld id = 'backbone' frameworkName='Backbone.js' title='a strcture for...applications'/>,
+		<Helloworld id = 'angular' frameworkName='Angular.js' title='a superheroic for...applications'/>,
+	</div>,
+	document.getElementById('content')
+	
+)
+*/
+class Content extends React.Component {
+	getUrl() {
+		return 'https://www.naver.com/';
+	}
+	render() {
+		return React.createElement(
+			'div',
+			null,
+			React.createElement(
+				'p',
+				null,
+				'your rest url ',
+				React.createElement(
+					'a',
+					{ href: this.getUrl() },
+					this.getUrl()
+				)
+			)
+		);
+	}
+}
+ReactDOM.render(React.createElement(
+	'div',
+	null,
+	React.createElement(Content, null)
+), document.getElementById('content'));
+ 
+ 
+ ```
+ 
+   
