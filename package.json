@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/babel ./hello-js-world-jsx/jsx -d ./hello-js-world-jsx/js -w"
+    +"build": "npm run clock_build && npm run clock-analog-digital_build && npm run clock-es6_build"
   },
   "author": "",
   "license": "ISC",
