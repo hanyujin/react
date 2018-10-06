@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+  </head>
+
+  <body>
+    <div id="content"></div>
+    
+	<script type="text/javascript">
+		let he = React.createElement('h1',null,'HelloWorld!')
+		class HelloWorld extends React.Component{
+			render(){
+				return React.createElement('div',null,he,he,he,he)
+			}
+			
+		}
+		ReactDOM.render(
+			React.createElement(HelloWorld,null),
+			document.getElementById('content')
+		)
+	</script>
+  </body>
+
+</html>
